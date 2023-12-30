@@ -1,5 +1,7 @@
 import { useLocation } from "react-router-dom";
-import { BarIcon } from "../Svgs/Svg";
+import { Avatar, Menu } from "@mantine/core";
+import { BarIcon, ChevronDownIcon, NotificationIcon } from "../Svgs/Svg";
+import UserImage from "../../assets/images/user.png"
 
 type Props = {
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,9 +28,25 @@ const Header = ({ openMobileNav }: Props) => {
                 </div>
               </div>
             ) : (
-              location.pathname.split('/')[1]
+              location.pathname.split("/")[1]
             )}
           </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <NotificationIcon />
+          <Avatar src={UserImage} />
+          <Menu shadow="md" width={200}>
+            <Menu.Target>
+              <button>
+                <ChevronDownIcon />
+              </button>
+            </Menu.Target>
+            <Menu.Dropdown mt={24}>
+              <Menu.Item>Profile</Menu.Item>
+              <Menu.Item>Logout</Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
         </div>
       </div>
     </div>
