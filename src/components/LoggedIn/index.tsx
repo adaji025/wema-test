@@ -1,0 +1,34 @@
+import { useState } from "react";
+import { LoadingOverlay } from "@mantine/core";
+import Sidebar from "./Sidebar";
+import MobileSidebar from "./MobileSidebar";
+import Header from "./Header";
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "../../pages/Dashboard/Dashboard";
+
+const LoggedInContainer = () => {
+  const [mobileNav, openMobileNav] = useState(false);
+  const [loading] = useState(false);
+
+  return (
+    <>
+      <MobileSidebar {...{ mobileNav, openMobileNav }} />
+      <LoadingOverlay visible={loading} />
+      <div className="flex w-full items-start">
+        <div className="fixed h-screen hidden lg:flex lg:w-[250px]  bg-darkBlue">
+          <Sidebar />
+        </div>
+        <div className="w-full">
+          <Header mobileNav={mobileNav} openMobileNav={openMobileNav} />
+          <main className="w-full bg-white pt-[50px] lg:ml-[250px] lg:w-[calc(100vw-250px)] px-4 lg:px-10 mb-10 mt-[60px] lg:mt-[unset]">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+            </Routes>
+          </main>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default LoggedInContainer;
