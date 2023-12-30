@@ -13,9 +13,11 @@ const Dashboard = () => {
               <ChevronDownIcon />
             </button>
           </Menu.Target>
-          <Menu.Dropdown mt={24}>
-            <Menu.Item>Profile</Menu.Item>
-            <Menu.Item>Logout</Menu.Item>
+          <Menu.Dropdown  className="font-semibold">
+            <Menu.Item>All</Menu.Item>
+            <Menu.Item>Active Verifiers</Menu.Item>
+            <Menu.Item>Pending Verifiers</Menu.Item>
+            <Menu.Item>Deactivated Verifiers</Menu.Item>
           </Menu.Dropdown>
         </Menu>
         <div className="flex items-center gap-3">

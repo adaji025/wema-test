@@ -8,7 +8,7 @@ import Login from "./pages/Auth/Login";
 import LoggedInContainer from "./components/LoggedIn";
 
 export default function App() {
-  const [token] = useState(true);
+  const [token] = useState(false);
   return (
     <MantineProvider theme={theme}>
       <Routes>
