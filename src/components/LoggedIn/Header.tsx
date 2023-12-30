@@ -1,37 +1,36 @@
+import { useLocation } from "react-router-dom";
+import { BarIcon } from "../Svgs/Svg";
+
 type Props = {
-  mobileNav: boolean;
   openMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const BarIcon = () => {
+const Header = ({ openMobileNav }: Props) => {
+  const location = useLocation();
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-      />
-    </svg>
-  );
-};
-const Header = ({ mobileNav, openMobileNav }: Props) => {
-  return (
-    <div className="bg-white fixed top-0 left-0 w-full z-50 lg:ml-[250px] lg:w-[calc(100vw-250px)] shadow">
-      {!mobileNav && (
-        <div
-          className="cursor-pointer flex justify-end items-center h-[80px] pr-5 border-b"
-          onClick={() => openMobileNav(true)}
-        >
-          <BarIcon />
+    <div className="bg-white fixed top-0 left-0 w-full z-50 lg:ml-[250px] lg:w-[calc(100vw-250px)]">
+      <div className="flex h-[80px] justify-between items-center pr-5 border-b bg-white">
+        <div className="flex items-center gap-2">
+          <div
+            className="cursor-pointer lg:hidden pl-5"
+            onClick={() => openMobileNav(true)}
+          >
+            <BarIcon />
+          </div>
+          <div className="capitalize text-lg sm:text-2xl font-bold lg:pl-[24px]">
+            {location.pathname === "/" ? (
+              <div className="flex gap-2 items-center">
+                <div className="text-lg sm:text-2xl font-bold">Verifiers</div>
+                <div className="flex justify-center items-center rounded-full text-xs h-6 w-6 bg-secondary text-primary">
+                  11
+                </div>
+              </div>
+            ) : (
+              location.pathname.split('/')[1]
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
