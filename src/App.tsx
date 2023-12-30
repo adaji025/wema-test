@@ -11,14 +11,9 @@ export default function App() {
   const [token] = useState(true);
   return (
     <MantineProvider theme={theme}>
-      <div className="underline">
-        <Routes>
-          <Route
-            path="/*"
-            element={token ? <LoggedInContainer /> : <Login />}
-          />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/*" element={token ? <LoggedInContainer /> : <Login />} />
+      </Routes>
     </MantineProvider>
   );
 }

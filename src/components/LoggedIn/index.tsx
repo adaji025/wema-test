@@ -5,6 +5,8 @@ import MobileSidebar from "./MobileSidebar";
 import Header from "./Header";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../../pages/Dashboard/Dashboard";
+import Transactions from "../../pages/Transactions/Transactions";
+import Deals from "../../pages/Deals/Deals";
 
 const LoggedInContainer = () => {
   const [mobileNav, openMobileNav] = useState(false);
@@ -23,6 +25,8 @@ const LoggedInContainer = () => {
           <main className="w-full pt-[50px] lg:ml-[250px] lg:w-[calc(100vw-250px)] px-4 lg:px-10 mb-10 mt-[60px] ">
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/deals" element={<Deals />} />
+              <Route path="/transactions" element={<Transactions />} />
             </Routes>
           </main>
         </div>

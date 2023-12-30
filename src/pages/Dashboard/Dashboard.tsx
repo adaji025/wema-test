@@ -1,7 +1,32 @@
+import { Button, Menu, TextInput } from "@mantine/core";
+import { ChevronDownIcon, PlusIcon, SearchIcon } from "../../components/Svgs/Svg";
+import VerifierTable from "./components/VerifierTable";
+
 const Dashboard = () => {
   return (
     <div className="">
-      <div>Dashboard</div>
+      <div className="flex gap-5 flex-col sm:flex-row justify-between sm:items-center">
+        <Menu shadow="md" width={200}>
+          <Menu.Target>
+            <button className="flex items-center justify-between max-w-[212px] w-full p-3 bg-white rounded">
+              <div>All</div>
+              <ChevronDownIcon />
+            </button>
+          </Menu.Target>
+          <Menu.Dropdown mt={24}>
+            <Menu.Item>Profile</Menu.Item>
+            <Menu.Item>Logout</Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+        <div className="flex items-center gap-3">
+          <TextInput size="md" leftSection={<SearchIcon />} placeholder="Name/Phone no / Location" />
+          <Button size="md" leftSection={<PlusIcon />} className="bg-primary text-sm">Add New Verifier</Button>
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <VerifierTable />
+      </div>
     </div>
   );
 };
