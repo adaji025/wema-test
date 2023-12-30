@@ -20,7 +20,7 @@ const LoggedInContainer = () => {
         </div>
         <div className="w-full">
           <Header openMobileNav={openMobileNav} />
-          <main className="w-full pt-[50px] lg:ml-[250px] lg:w-[calc(100vw-250px)] px-4 lg:px-10 mb-10 mt-[60px] lg:mt-[unset]">
+          <main className="w-full pt-[50px] lg:ml-[250px] lg:w-[calc(100vw-250px)] px-4 lg:px-10 mb-10 mt-[60px] ">
             <Routes>
               <Route path="/" element={<Dashboard />} />
             </Routes>

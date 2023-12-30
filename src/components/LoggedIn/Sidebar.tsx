@@ -34,7 +34,7 @@ const Sidebar = ({ openMobileNav }: Props) => {
       <aside className="flex w-full h-full flex-col justify-between bg-secondary lg:bg-white shadow">
         <div className="w-full px-[24px]">
           <div className="mt-[18px] p-2 text-center flex justify-center font-bold rounded-full">
-            <img src={Logo} alt="express" />
+            <img src={Logo} alt="express" className="w-[100px]" />
           </div>
 
           <div className="mt-12 text-sm sm:text-base grid gap-5">
