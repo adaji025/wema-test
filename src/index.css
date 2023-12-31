@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 td {
-    text-transform: capitalize !important;
-    font-size: 14px !important;
+  text-transform: capitalize !important;
+  font-size: 14px !important;
+}
+
+.dropzone {
+  border: 1px gray dashed !important;
 }
