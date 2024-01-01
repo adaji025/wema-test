@@ -10,3 +10,7 @@ td {
 .dropzone {
   border: 1px gray dashed !important;
 }
+
+.mantine-LoadingOverlay-root {
+  position: fixed !important;
+}

@@ -15,7 +15,7 @@ const Sidebar = ({ openMobileNav }: Props) => {
     {
       title: "Verifiers",
       icon: <VerifierIcons />,
-      route: "/",
+      route: "/verifiers",
     },
     {
       title: "Deals",
