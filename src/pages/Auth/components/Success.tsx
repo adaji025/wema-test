@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Modal, Button, Divider } from "@mantine/core";
+import { Modal, Button } from "@mantine/core";
 import PendingIcon from "../../../assets/svgs/Icon-Pending.svg";
 
 type Props = {
