@@ -15,9 +15,11 @@ const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredData, setFilteredData] = useState<VerifiersType[]>(verifiers);
 
+  console.log(filteredData)
   useEffect(() => {
     handleGetVerifiers();
   }, []);
+  
 
   const handleGetVerifiers = () => {
     setLoading(true);
@@ -45,6 +47,14 @@ const Dashboard = () => {
     );
     setFilteredData(filteredData);
   };
+
+  useEffect(() => {
+    if (searchTerm === "") {
+      setFilteredData(verifiers);
+    } else {
+      setFilteredData(filteredData);
+    }
+  }, [searchTerm, verifiers]);
 
   return (
     <Fragment>
