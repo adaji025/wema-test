@@ -1,6 +1,5 @@
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
-import { theme } from "./theme";
 import "@mantine/notifications/styles.css";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -18,11 +17,17 @@ export default function App() {
     }
   }, []);
 
-
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider
+      theme={{
+        fontFamily: "Inter, sans-serif",
+      }}
+    >
       <Routes>
-        <Route path="/*" element={token ? <LoggedInContainer /> : <Unauthenticated />} />
+        <Route
+          path="/*"
+          element={token ? <LoggedInContainer /> : <Unauthenticated />}
+        />
       </Routes>
     </MantineProvider>
   );
