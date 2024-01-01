@@ -1,15 +1,13 @@
-import { Table } from "@mantine/core";
+import { Select, Table } from "@mantine/core";
 import { useState } from "react";
 import { OptionIcon } from "../../../components/Svgs/Svg";
 import { VerifiersType } from "../../../types/verifiers";
 
-
-
 type IProps = {
-  verifiers: VerifiersType[]
-}
+  verifiers: VerifiersType[];
+};
 
-const VerifierTable = ({verifiers}: IProps) => {
+const VerifierTable = ({ verifiers }: IProps) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const isAllRowsSelected =
     verifiers.length > 0 && selectedRowIds.length === verifiers.length;
@@ -32,8 +30,8 @@ const VerifierTable = ({verifiers}: IProps) => {
 
   const isRowSelected = (id: string) => selectedRowIds.includes(id);
   return (
-    <div>
-      <Table.ScrollContainer minWidth={700} className="bg-white">
+    <div className="shadow-md">
+      <Table.ScrollContainer minWidth={700} className="bg-white ">
         <Table verticalSpacing={10} className="!rounded-xl">
           <Table.Thead>
             <Table.Tr>
@@ -60,8 +58,8 @@ const VerifierTable = ({verifiers}: IProps) => {
                 <Table.Td>
                   <input
                     type="checkbox"
-                    checked={isRowSelected("item._id")}
-                    onChange={() => handleRowCheckboxChange("item._id")}
+                    checked={isRowSelected(item._id)}
+                    onChange={() => handleRowCheckboxChange(item._id)}
                   />
                 </Table.Td>
                 <Table.Td>{item.firstName}</Table.Td>
@@ -69,7 +67,17 @@ const VerifierTable = ({verifiers}: IProps) => {
                 <Table.Td>{item.phone}</Table.Td>
                 <Table.Td>{item.partner}</Table.Td>
                 <Table.Td>{item.location}</Table.Td>
-                <Table.Td>{item.status}</Table.Td>
+                <Table.Td>
+                  <div
+                    className={`px-4 py-2 inline-block text-center ${
+                      item.status === "active"
+                        ? "bg-secondary rounded text-[#27A713]"
+                        : "bg-[#FF99001A] text-[#FF9900]"
+                    }`}
+                  >
+                    {item.status}
+                  </div>
+                </Table.Td>
                 <Table.Td>
                   <OptionIcon />
                 </Table.Td>
@@ -78,6 +86,25 @@ const VerifierTable = ({verifiers}: IProps) => {
           </Table.Tbody>
         </Table>
       </Table.ScrollContainer>
+      <div className="px-2 py-5 border-t bg-white overflow-hidden flex gap-5 flex-col sm:flex-row justify-between items-center">
+        <div className="flex items-center gap-2 max-w-[200px]">
+          <div className="text-sm text-[#808080]">Rows per page</div>
+          <Select
+            className="w-[100px]"
+            data={[
+              { label: "10", value: "10" },
+              { label: "20", value: "20" },
+            ]}
+            defaultValue="10"
+          />{" "}
+        </div>
+        <div className="flex gap-2 items-center text-[#808080] pr-2">
+          <div>Previous</div>
+          <div className="text-primary">1</div>
+          <div>2</div>
+          <div className="text-primary">Next</div>
+        </div>
+      </div>
     </div>
   );
 };
