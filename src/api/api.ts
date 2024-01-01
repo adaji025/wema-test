@@ -6,6 +6,6 @@ export const APIS = {
     REGISTER: `${api}/user`,
     },
     VERIFIERS: {
-        GET: `${api}/Verifiers`
+        GET: `${api}/user/verifier`
     }
 };

@@ -2,7 +2,7 @@ import { showNotification } from "@mantine/notifications";
 import axios from "axios";
 
 function getToken() {
-  let token = localStorage.getItem("nda_token") ?? null;
+  let token = localStorage.getItem("xpress_token") ?? null;
   return token;
 }
 
@@ -20,7 +20,7 @@ AxoisApi.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response.status === 401) {
-      window.location.href = "/sign-in";
+      // window.location.href = "/";
       return showNotification({
         title: "Error",
         message: "Unathorized, Please login",

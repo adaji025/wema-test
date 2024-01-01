@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/svgs/xpress.svg";
 import {
@@ -7,22 +7,29 @@ import {
   PasswordInput,
   Select,
   TextInput,
+  LoadingOverlay,
 } from "@mantine/core";
 import { stateArrays } from "../../utils/state";
 import { useForm } from "@mantine/form";
 import { registerUser } from "../../services/user";
-import { RegisterTypes } from "../../types/user";
 import { showNotification } from "@mantine/notifications";
 import { useDropzone } from "react-dropzone";
 import UploadIcon from "../../assets/svgs/upload.svg";
 import ButtonIcon from "../../assets/svgs/Icon button.svg";
+import useNotification from "../../components/hooks/useNotification";
+import { useDisclosure } from "@mantine/hooks";
+import Success from "./components/Success";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(false);
+  const [opened, { open, close }] = useDisclosure(true);
+
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
   });
 
+  const { handleError } = useNotification();
   const navigate = useNavigate();
 
   const form = useForm({
@@ -50,8 +57,8 @@ const Register = () => {
     },
   });
 
-  const submit = (values: RegisterTypes) => {
-
+  const submit = (values: any) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("businessName", values.businessName);
     formData.append("businessAddress", "values.businessAddress");
@@ -76,15 +83,51 @@ const Register = () => {
           message: "Successfully registered",
           color: "green",
         });
+        open();
+        form.reset();
       })
       .catch((err) => {
-        console.log(err);
+        handleError(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
 
-    console.log(values)
+    console.log(values);
   };
+
+  const validate = useCallback((): boolean => {
+    if (
+      form.values.businessName === "" ||
+      form.values.businessEmail === "" ||
+      form.values.businessPhone === "" ||
+      form.values.businessCategory === "" ||
+      form.values.accountNumber === "" ||
+      acceptedFiles.length === 0
+    )
+      return true;
+    return false;
+  }, [form.values, acceptedFiles]);
+
+  const validateTwo = useCallback((): boolean => {
+    if (
+      form.values.houseNumber === "" ||
+      form.values.streetNumber === "" ||
+      form.values.city === "" ||
+      form.values.state === "" ||
+      form.values.contactName === "" ||
+      form.values.contactEmail === "" ||
+      form.values.contactPhone === "" ||
+      form.values.password === ""
+    )
+      return true;
+    return false;
+  }, [form.values]);
+
   return (
     <Fragment>
+      <Success close={close} opened={opened} />
+      <LoadingOverlay visible={loading} />
       <div className="bg-[#F5F6F8] min-h-screen h-full p-6">
         <div className="max-w-[1200px] mx-auto w-full">
           <div className="flex gap-5 flex-col sm:flex-row pt-5 sm:pt-[unset] justify-between items-center min-h-[80px]">
@@ -94,7 +137,7 @@ const Register = () => {
               <button
                 type="button"
                 className="border px-3 py-2 rounded text-primary font-bold text-sm border-primary"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/")}
               >
                 Sign in
               </button>
@@ -183,11 +226,10 @@ const Register = () => {
                                 Drag here or click the button below to upload{" "}
                               </div>
                               <div className="flex justify-center">
-
-                              <div  className="inline-flex justify-center mx-auto text-sm items-center gap-3 px-4 py-2 text-white rounded-md my-4 bg-primary">
-                                <img src={ButtonIcon} alt="" />
-                                <div>Choose file</div>
-                              </div>
+                                <div className="inline-flex justify-center mx-auto text-sm items-center gap-3 px-4 py-2 text-white rounded-md my-4 bg-primary">
+                                  <img src={ButtonIcon} alt="" />
+                                  <div>Choose file</div>
+                                </div>
                               </div>
                             </div>
                             <div>Maximum upload size: 10MB (.jpg)</div>
@@ -205,8 +247,9 @@ const Register = () => {
                       <Button
                         size="md"
                         type="button"
-                        className="w-1/3 sm:w-1/3 bg-primary text-white"
+                        className="w-1/3 sm:w-1/3 bg-primary text-white disabled:bg-primary/50 disabled:cursor-not-allowed"
                         onClick={() => setStep(true)}
+                        disabled={validate()}
                       >
                         Next
                       </Button>
@@ -307,7 +350,8 @@ const Register = () => {
                       <Button
                         size="md"
                         type="submit"
-                        className="w-1/3 sm:w-1/3 bg-primary text-white"
+                        className="w-1/3 sm:w-1/3 bg-primary text-white disabled:bg-primary/50 disabled:cursor-not-allowed"
+                        disabled={validateTwo()}
                       >
                         Submit
                       </Button>

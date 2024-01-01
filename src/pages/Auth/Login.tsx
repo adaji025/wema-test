@@ -28,12 +28,14 @@ const Login = () => {
     setLoading(true);
 
     loginUser(values)
-      .then(() => {
+      .then((res: any) => {
         showNotification({
           title: "success",
           message: "Login successful",
           color: "green",
         });
+        localStorage.setItem("xpress_token", res.data.data.token);
+        navigate("/verifiers")
       })
       .catch((error) => {
         handleError(error);

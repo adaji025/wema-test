@@ -2,19 +2,27 @@ import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { theme } from "./theme";
 import "@mantine/notifications/styles.css";
-import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
-import Login from "./pages/Auth/Login";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import LoggedInContainer from "./components/LoggedIn";
-import Register from "./pages/Auth/Register";
+import Unauthenticated from "./components/Unauthenticated/Unauthenticated";
 
 export default function App() {
-  const [token] = useState(false);
+  const token = localStorage.getItem("xpress_token") ?? "";
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token && location.pathname === "/") {
+      navigate("/verifiers");
+    }
+  }, []);
+
+
   return (
     <MantineProvider theme={theme}>
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/*" element={token ? <LoggedInContainer /> : <Login />} />
+        <Route path="/*" element={token ? <LoggedInContainer /> : <Unauthenticated />} />
       </Routes>
     </MantineProvider>
   );

@@ -1,32 +1,38 @@
-import { Button, Menu, TextInput } from "@mantine/core";
+import { Button, Menu, TextInput, LoadingOverlay } from "@mantine/core";
 import {
   ChevronDownIcon,
   PlusIcon,
   SearchIcon,
 } from "../../components/Svgs/Svg";
 import VerifierTable from "./components/VerifierTable";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { VerifiersType } from "../../types/verifiers";
 import { getVerifiers } from "../../services/user";
 
 const Dashboard = () => {
-  const [Verifiers, setVerifier] = useState<VerifiersType[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [verifiers, setVerifier] = useState<VerifiersType[]>([]);
 
   useEffect(() => {
     handleGetVerifiers();
   }, []);
 
   const handleGetVerifiers = () => {
+    setLoading(true);
     getVerifiers()
       .then((res: any) => {
-        console.log(res);
+        setVerifier(res.data.data);
       })
       .catch((err: any) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   return (
-    <div className="">
+    <Fragment>
+      <LoadingOverlay visible={loading} />
       <div className="flex gap-5 flex-col sm:flex-row justify-between sm:items-center">
         <Menu shadow="md" width={200}>
           <Menu.Target>
@@ -59,9 +65,9 @@ const Dashboard = () => {
       </div>
 
       <div className="mt-10">
-        <VerifierTable />
+        <VerifierTable verifiers={verifiers} />
       </div>
-    </div>
+    </Fragment>
   );
 };
 

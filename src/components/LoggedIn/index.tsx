@@ -24,7 +24,7 @@ const LoggedInContainer = () => {
           <Header openMobileNav={openMobileNav} />
           <main className="w-full pt-[50px] lg:ml-[250px] lg:w-[calc(100vw-250px)] px-4 lg:px-10 mb-10 mt-[60px] ">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/verifiers" element={<Dashboard />} />
               <Route path="/deals" element={<Deals />} />
               <Route path="/transactions" element={<Transactions />} />
             </Routes>

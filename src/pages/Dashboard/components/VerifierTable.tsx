@@ -1,22 +1,18 @@
 import { Table } from "@mantine/core";
 import { useState } from "react";
 import { OptionIcon } from "../../../components/Svgs/Svg";
+import { VerifiersType } from "../../../types/verifiers";
 
-const tableData = [
-  {
-    fname: "mukhtar",
-    lname: "adaji",
-    pnumb: "09011223344",
-    partner: "the place",
-    location: "festac",
-    status: "active",
-  },
-];
 
-const VerifierTable = () => {
+
+type IProps = {
+  verifiers: VerifiersType[]
+}
+
+const VerifierTable = ({verifiers}: IProps) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const isAllRowsSelected =
-    tableData.length > 0 && selectedRowIds.length === tableData.length;
+    verifiers.length > 0 && selectedRowIds.length === verifiers.length;
 
   const handleRowCheckboxChange = (id: string) => {
     setSelectedRowIds((prevId) =>
@@ -30,7 +26,7 @@ const VerifierTable = () => {
     if (isAllRowsSelected) {
       setSelectedRowIds([]);
     } else {
-      setSelectedRowIds(tableData.map((row: any) => row._id));
+      setSelectedRowIds(verifiers.map((row: any) => row._id));
     }
   };
 
@@ -59,7 +55,7 @@ const VerifierTable = () => {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {tableData.map((item, index) => (
+            {verifiers.map((item, index) => (
               <Table.Tr key={index}>
                 <Table.Td>
                   <input
@@ -68,9 +64,9 @@ const VerifierTable = () => {
                     onChange={() => handleRowCheckboxChange("item._id")}
                   />
                 </Table.Td>
-                <Table.Td>{item.fname}</Table.Td>
-                <Table.Td>{item.lname}</Table.Td>
-                <Table.Td>{item.pnumb}</Table.Td>
+                <Table.Td>{item.firstName}</Table.Td>
+                <Table.Td>{item.lastName}</Table.Td>
+                <Table.Td>{item.phone}</Table.Td>
                 <Table.Td>{item.partner}</Table.Td>
                 <Table.Td>{item.location}</Table.Td>
                 <Table.Td>{item.status}</Table.Td>
