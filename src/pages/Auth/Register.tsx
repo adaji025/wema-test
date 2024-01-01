@@ -23,7 +23,7 @@ import Success from "./components/Success";
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(false);
-  const [opened, { open, close }] = useDisclosure(true);
+  const [opened, { open, close }] = useDisclosure(false);
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
