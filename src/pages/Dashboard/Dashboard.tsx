@@ -12,6 +12,8 @@ import { getVerifiers } from "../../services/user";
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [verifiers, setVerifier] = useState<VerifiersType[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredData, setFilteredData] = useState<VerifiersType[]>(verifiers);
 
   useEffect(() => {
     handleGetVerifiers();
@@ -30,6 +32,20 @@ const Dashboard = () => {
         setLoading(false);
       });
   };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
+
+    const filteredData = verifiers.filter((item) =>
+      item.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.phone.toLowerCase().includes(searchTerm.toLowerCase())||
+      item.location.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filteredData);
+  };
+
   return (
     <Fragment>
       <LoadingOverlay visible={loading} />
@@ -53,6 +69,8 @@ const Dashboard = () => {
             size="md"
             leftSection={<SearchIcon />}
             placeholder="Name/Phone no / Location"
+            value={searchTerm}
+          onChange={handleSearch}
           />
           <Button
             size="md"
@@ -65,7 +83,7 @@ const Dashboard = () => {
       </div>
 
       <div className="mt-10">
-        <VerifierTable verifiers={verifiers} />
+        <VerifierTable verifiers={filteredData} />
       </div>
     </Fragment>
   );

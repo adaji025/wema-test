@@ -114,7 +114,7 @@ const VerifierTable = ({ verifiers }: IProps) => {
       </Table.ScrollContainer>
       <div className="px-2 py-5 border-t bg-white overflow-hidden flex gap-5 flex-col sm:flex-row justify-between items-center">
         <div className="flex items-center gap-2 max-w-[200px]">
-          <div className="text-sm text-[#808080]">Rows per page</div>
+          <div className="text-xs text-[#808080]">Rows per page</div>
           <Select
             className="w-[100px]"
             data={[
@@ -125,7 +125,7 @@ const VerifierTable = ({ verifiers }: IProps) => {
           />{" "}
         </div>
         <div className="flex gap-2 items-center text-[#808080] pr-2">
-          <div className="cursor-pointer text-sm" onClick={prevPage}>
+          <div className="cursor-pointer text-xs" onClick={prevPage}>
             Previous
           </div>
           {pageNumbers.map((pageNumber, index) => (
@@ -145,7 +145,7 @@ const VerifierTable = ({ verifiers }: IProps) => {
               </div>
             </li>
           ))}
-          <div className="text-primary cursor-pointer text-sm" onClick={nextPage}>
+          <div className="text-primary cursor-pointer text-xs" onClick={nextPage}>
             Next
           </div>
         </div>
