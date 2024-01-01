@@ -9,6 +9,32 @@ type IProps = {
 
 const VerifierTable = ({ verifiers }: IProps) => {
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const perPage = 3;
+  const lastIndex = currentPage * perPage;
+  const firstIndex = lastIndex - perPage;
+
+  const records = verifiers.slice(firstIndex, lastIndex);
+  const noPages = Math.ceil(verifiers.length / perPage);
+  const pageNumbers = [...Array(noPages + 1).keys()].slice(1);
+
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const changeCurrentPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const nextPage = () => {
+    if (currentPage !== noPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   const isAllRowsSelected =
     verifiers.length > 0 && selectedRowIds.length === verifiers.length;
 
@@ -53,7 +79,7 @@ const VerifierTable = ({ verifiers }: IProps) => {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {verifiers.map((item, index) => (
+            {records.map((item, index) => (
               <Table.Tr key={index}>
                 <Table.Td>
                   <input
@@ -99,10 +125,29 @@ const VerifierTable = ({ verifiers }: IProps) => {
           />{" "}
         </div>
         <div className="flex gap-2 items-center text-[#808080] pr-2">
-          <div>Previous</div>
-          <div className="text-primary">1</div>
-          <div>2</div>
-          <div className="text-primary">Next</div>
+          <div className="cursor-pointer text-sm" onClick={prevPage}>
+            Previous
+          </div>
+          {pageNumbers.map((pageNumber, index) => (
+            <li
+              className={`text-xs list-none flex gap-2 hover:text-primary hover:font-semibold ${
+                pageNumber === currentPage &&
+                "bg-darkBlue text-black font-semibold"
+              }`}
+              key={index}
+            >
+              <div
+                className="cursor-pointer"
+                onClick={() => changeCurrentPage(pageNumber)}
+              >
+                {" "}
+                {pageNumber}
+              </div>
+            </li>
+          ))}
+          <div className="text-primary cursor-pointer text-sm" onClick={nextPage}>
+            Next
+          </div>
         </div>
       </div>
     </div>
